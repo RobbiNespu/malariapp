@@ -23,9 +23,10 @@ import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import org.eyeseetea.malariacare.fragments.DashboardDetailsFragment;
 
@@ -50,6 +51,27 @@ public class DashboardDetailsActivity extends BaseActivity {
             ft.add(R.id.dashboard_details_container, detailsFragment);
             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
             ft.commit();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_dashboard_details, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        switch (id) {
+            case R.id.action_update_metadata:
+                // TODO: Here we must take the user and get its allowed data from server
+
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 

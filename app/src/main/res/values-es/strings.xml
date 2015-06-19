@@ -24,7 +24,8 @@
     <string name="settings_menu_about">Acerca de</string>
     <string name="settings_menu_configuration">Configuración</string>
     <string name="settings_menu_licence">Licencia</string>
-    <string name="settings_menu_update">Actualizar preguntas (DHIS)</string>
+    <string name="settings_menu_update_questions">Actualizar preguntas (DHIS)</string>
+    <string name="settings_menu_update_metadata">Actualizar metadatos</string>
     <string name="settings_menu_logout">Desconectar</string>
 
     <!-- login -->

@@ -24,7 +24,8 @@
     <string name="settings_menu_about">A propos de cette app</string>
     <string name="settings_menu_configuration">Paramètres</string>
     <string name="settings_menu_licence">License</string>
-    <string name="settings_menu_update">Mise à jour des questions (DHIS)</string>
+    <string name="settings_menu_update_questions">Mise à jour de questions (DHIS)</string>
+    <string name="settings_menu_update_metadata">Mise à jour de metadonnés</string>
     <string name="settings_menu_logout">Se deconnecter</string>
 
     <!-- login -->
