@@ -2,22 +2,16 @@
 <resources>
 
     <!-- # general -->
-    <string name="app_name">Health Network QIS</string>
-    <string name="developers">EyeSeeTea LTD</string>
     <string name="empty_string"></string>
     <string name="yes">Oui</string>
-    <string name="no">No</string>
-    <string name="ok">Ok</string>
+    <string name="no">Non</string>
     <string name="cancel">Cancelar</string>
-    <string name="score">Score</string>
-    <string name="number_zero">0</string>
-    <string name="number_zero_percentage">0 % </string>
+    <string name="score">Ponctuation</string>
     <string name="title_id">ID</string>
     <string name="title_name">Name</string>
     <string name="good">Bien</string>
     <string name="fair">Moyen</string>
     <string name="poor">Pauvre</string>
-    <string name="plus">+</string>
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet</string>
 
     <!-- settings -->
@@ -29,6 +23,7 @@
     <string name="settings_menu_logout">Se deconnecter</string>
 
     <!-- login -->
+    <string name="login_info_dhis_server">Serveur DHIS</string>
     <string name="login_info_username">Utilisateur</string>
     <string name="login_info_password">Mot de passe</string>
     <string name="login_info_sign_in">Se connecter</string>
@@ -63,7 +58,7 @@
     <string name="create_info_survey">Enquête</string>
 
     <!-- assessment -->
-    <string name="assessment_title_facility_date">Centre de santé / Date</string>
+    <string name="assessment_title_facility_date">Centre / Date</string>
     <string name="assessment_title_state">État</string>
     <string name="assessment_info_delete">Effacer</string>
     <string name="assessment_title_header">Evaluation active</string>
@@ -100,31 +95,11 @@
     <string name="survey_info_select_tab">Choisissez onglet: </string>
 
     <!-- widget -->
-    <string name="widget_info_empty_statement">Question statement</string>
+    <string name="widget_info_empty_statement">Enoncé de question</string>
 
     <!-- custom -->
     <string name="custom_title_tallies">TALLIES - Add up and enter the totals for the following indicators from the registers in column A.  In column B enter the total numbers from the monthly reporting sheet</string>
     <string name="custom_info_tallies">TALLIES for the Month of</string>
-    <string name="custom_info_one">1</string>
-    <string name="custom_info_two">2</string>
-    <string name="custom_info_three">3</string>
-    <string name="custom_info_four">4</string>
-    <string name="custom_info_five">5</string>
-    <string name="custom_info_six">6</string>
-    <string name="custom_info_seven">7</string>
-    <string name="custom_info_eight">8</string>
-    <string name="custom_info_nine">9</string>
-    <string name="custom_info_ten">10</string>
-    <string name="custom_info_eleven">11</string>
-    <string name="custom_info_twelve">12</string>
-    <string name="custom_info_thirteen">13</string>
-    <string name="custom_info_fourteen">14</string>
-    <string name="custom_info_fifteen">15</string>
-    <string name="custom_info_sixteen">16</string>
-    <string name="custom_info_seventeen">17</string>
-    <string name="custom_info_eighteen">18</string>
-    <string name="custom_info_nineteen">19</string>
-    <string name="custom_info_twenty">20</string>
 
     <!-- adherence -->
     <string name="adherence_info_switchquestion">Est-ce que les enregistrements du pharmacie sont du ACTs livrés ?</string>
@@ -133,18 +108,18 @@
     <string name="adherence_title_gender">Genre</string>
     <string name="adherence_title_age">Âge</string>
     <string name="adherence_title_test_results">Results du test</string>
-    <string name="adherence_info_patient_id">ID\npatient</string>
-    <string name="adherence_info_prescribed">ACT\nPrescribed?</string>
+    <string name="adherence_info_patient_id">ID patient</string>
+    <string name="adherence_info_prescribed">ACT Prescribed?</string>
     <string name="adherence_info_rdt_positive">RDT Positif</string>
     <string name="adherence_info_rdt_negative">RDT Negatif</string>
     <string name="adherence_info_microscopy_positive">Microscopie Positif</string>
     <string name="adherence_info_microscopy_negative">Microscopie Negatif</string>
 
     <!-- iqa eqa -->
-    <string name="iqatab_info_supervisor">Supervisor</string>
+    <string name="iqatab_info_supervisor">Superviseur</string>
     <string name="iqatab_info_parasites">Parasites/uL</string>
     <string name="iqatab_info_species">Species</string>
-    <string name="iqatab_info_labstaff">Lab Staff</string>
+    <string name="iqatab_info_labstaff">Personnel du laboratoire</string>
 
     <!-- reporting -->
     <string name="reporting_info_reporting">Notification</string>
@@ -159,10 +134,8 @@
     <string name="score_title_avg">Moyenne</string>
     <string name="score_title_environment">Environement</string>
     <string name="score_title_profile">Profil</string>
-    <string name="score_title_percentage">%</string>
     <string name="score_info_tab_score">Ponctuation pour onglette:</string>
     <string name="score_info_overall">Total</string>
-    <string name="score_info_zero_float">0.0</string>
     <string name="score_info_accumulated">Onglet num/dem</string>
     <string name="score_info_case1">Cas 1</string>
     <string name="score_info_case2">Cas 2</string>
@@ -186,12 +159,6 @@
 
     <string name="settings_array_values_font_sizes_def">@string/font_size_level2</string>
 
-    <string name="normal_font">Roboto-Medium.ttf</string>
-    <string name="light_font">Roboto-Light.ttf</string>
-    <string name="bold_font_name">Roboto-Bold.ttf</string>
-    <string name="medium_font_name">Roboto-Medium.ttf</string>
-    <string name="condensed_font_name">Roboto-Condensed.ttf</string>
-
     <string-array name="settings_array_values_font_sizes">
         <item>@string/font_size_level0</item>
         <item>@string/font_size_level1</item>
@@ -199,13 +166,5 @@
         <item>@string/font_size_level3</item>
         <item>@string/font_size_level4</item>
     </string-array>
-    <string name="font_size_level0">xsmall</string>
-    <string name="font_size_level1">small</string>
-    <string name="font_size_level2">medium</string>
-    <string name="font_size_level3">large</string>
-    <string name="font_size_level4">xlarge</string>
-
-    <string name="textcard_default_scale">system</string>
-    <string name="textcard_default_dimension">medium</string>
 
 </resources>

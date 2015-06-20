@@ -19,6 +19,7 @@
 
 package org.eyeseetea.malariacare;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -50,7 +51,7 @@ public abstract class BaseActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
 
         initView();
-        updateFontsByPreferences();
+        updateFontsByPreferences(this);
     }
 
     /**
@@ -65,17 +66,16 @@ public abstract class BaseActivity extends ActionBarActivity {
     /**
      * Loads visual preferences
      */
-    private void updateFontsByPreferences(){
+    public static void updateFontsByPreferences(Activity activity){
         // Update font size in case this could have been changed by the user
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        if (sharedPreferences.getBoolean(this.getString(R.string.customize_fonts), false)) {
-            Session.setFontSize(sharedPreferences.getString(this.getString(R.string.font_sizes), Constants.FONTS_SYSTEM));
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
+        if (sharedPreferences.getBoolean(activity.getString(R.string.customize_fonts), false)) {
+            Session.setFontSize(sharedPreferences.getString(activity.getString(R.string.font_sizes), Constants.FONTS_SYSTEM));
         }else{
             Session.setFontSize(Constants.FONTS_SYSTEM);
         }
-
-        debugMessage("Font size: " + sharedPreferences.getString(this.getString(R.string.font_sizes), Constants.FONTS_SYSTEM));
-        debugMessage("Show num/dems: " + Boolean.toString(sharedPreferences.getBoolean(this.getString(R.string.show_num_dems), false)));
+        Log.d(".BaseActivity", "Font size: " + sharedPreferences.getString(activity.getString(R.string.font_sizes), Constants.FONTS_SYSTEM));
+        Log.d(".BaseActivity", "Show num/dems: " + Boolean.toString(sharedPreferences.getBoolean(activity.getString(R.string.show_num_dems), false)));
     }
 
     @Override

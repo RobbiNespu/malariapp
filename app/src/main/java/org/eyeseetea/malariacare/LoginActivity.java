@@ -22,7 +22,6 @@ package org.eyeseetea.malariacare;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-
 import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
@@ -31,11 +30,9 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -46,9 +43,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
 
 import org.eyeseetea.malariacare.database.model.Survey;
 import org.eyeseetea.malariacare.database.model.Tab;
@@ -94,11 +88,13 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     private View mProgressView;
     private View mUserLoginFormView;
     private View mLoginFormView;
+    private View DHISServerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(".LoginActivity","onCreate");
         super.onCreate(savedInstanceState);
+        BaseActivity.updateFontsByPreferences(this);
 
         //User already logged in --> dashboard
         Iterator<User> users = User.findAll(User.class);

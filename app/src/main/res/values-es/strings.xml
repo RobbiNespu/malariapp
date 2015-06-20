@@ -2,22 +2,16 @@
 <resources>
 
     <!-- # general -->
-    <string name="app_name">Health Network QIS</string>
-    <string name="developers">EyeSeeTea LTD</string>
     <string name="empty_string"></string>
     <string name="yes">Sí</string>
     <string name="no">No</string>
-    <string name="ok">Ok</string>
     <string name="cancel">Annuler</string>
     <string name="score">Puntuación</string>
-    <string name="number_zero">0</string>
-    <string name="number_zero_percentage">0 % </string>
     <string name="title_id">ID</string>
     <string name="title_name">Nombre</string>
     <string name="good">Bien</string>
     <string name="fair">Normal</string>
     <string name="poor">Mal</string>
-    <string name="plus">+</string>
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet</string>
 
     <!-- settings -->
@@ -29,7 +23,8 @@
     <string name="settings_menu_logout">Desconectar</string>
 
     <!-- login -->
-    <string name="login_info_username">Email</string>
+    <string name="login_info_dhis_server">Servidor DHIS</string>
+    <string name="login_info_username">Usuario</string>
     <string name="login_info_password">Contraseña</string>
     <string name="login_info_sign_in">Acceder</string>
     <string name="login_error_bad_credentials">El usuario/contraseña es incorrecto</string>
@@ -46,7 +41,7 @@
     <string name="dialog_content_logout_confirmation">Si se desconecta del sistema, se borrarán todas las encuestas no enviadas. ¿Quiere continuar?</string>
 
     <!-- dashboard -->
-    <string name="dashboard_info_feedback">Feedback</string>
+    <string name="dashboard_info_feedback">Realimentación</string>
     <string name="dashboard_info_active_assessments">Evaluaciones activas</string>
     <string name="dashboard_info_new_assessment">Nueva evaluación</string>
     <string name="dashboard_info_future_assessments">Evaluaciones futuras</string>
@@ -62,7 +57,7 @@
     <string name="create_info_survey">Formulario</string>
 
     <!-- assessment -->
-    <string name="assessment_title_facility_date">Centro de salud/ Fecha</string>
+    <string name="assessment_title_facility_date">Centro de salud / Fecha</string>
     <string name="assessment_title_state">Estado</string>
     <string name="assessment_info_delete">Eliminar</string>
     <string name="assessment_title_header">Evaluación Activa</string>
@@ -83,14 +78,14 @@
     <string name="performance_title_period">Periodo</string>
     <string name="performance_title_target">Objetivo</string>
     <string name="performance_title_completed">Completado</string>
-    <string name="performance_title_achievement">%</string>
+    <string name="performance_title_achievement">Logro</string>
     <string name="performance_title_header">Rendimiento Frente a Objetivo</string>
 
     <!-- analytics -->
     <string name="analytics_title_period">Periodo</string>
     <string name="analytics_title_target">Objetivo</string>
     <string name="analytics_title_completed">Completado</string>
-    <string name="analytics_title_achievement">%</string>
+    <string name="analytics_title_achievement">Logro</string>
     <string name="analytics_title_header">Estadísticas</string>
 
     <!-- survey -->
@@ -104,26 +99,6 @@
     <!-- custom -->
     <string name="custom_title_tallies">TALLIES - Add up and enter the totals for the following indicators from the registers in column A.  In column B enter the total numbers from the monthly reporting sheet</string>
     <string name="custom_info_tallies">TALLIES for the Month of</string>
-    <string name="custom_info_one">1</string>
-    <string name="custom_info_two">2</string>
-    <string name="custom_info_three">3</string>
-    <string name="custom_info_four">4</string>
-    <string name="custom_info_five">5</string>
-    <string name="custom_info_six">6</string>
-    <string name="custom_info_seven">7</string>
-    <string name="custom_info_eight">8</string>
-    <string name="custom_info_nine">9</string>
-    <string name="custom_info_ten">10</string>
-    <string name="custom_info_eleven">11</string>
-    <string name="custom_info_twelve">12</string>
-    <string name="custom_info_thirteen">13</string>
-    <string name="custom_info_fourteen">14</string>
-    <string name="custom_info_fifteen">15</string>
-    <string name="custom_info_sixteen">16</string>
-    <string name="custom_info_seventeen">17</string>
-    <string name="custom_info_eighteen">18</string>
-    <string name="custom_info_nineteen">19</string>
-    <string name="custom_info_twenty">20</string>
 
     <!-- adherence -->
     <string name="adherence_info_switchquestion">¿Hay registros de ACTs dispensados?</string>
@@ -132,8 +107,8 @@
     <string name="adherence_title_gender">Género</string>
     <string name="adherence_title_age">Edad</string>
     <string name="adherence_title_test_results">Resultados del test</string>
-    <string name="adherence_info_patient_id">ID\npaciente</string>
-    <string name="adherence_info_prescribed">¿ACT\nPrescrito?</string>
+    <string name="adherence_info_patient_id">ID paciente</string>
+    <string name="adherence_info_prescribed">ACT Prescrito?</string>
     <string name="adherence_info_rdt_positive">RDT Positivo</string>
     <string name="adherence_info_rdt_negative">RDT Negativo</string>
     <string name="adherence_info_microscopy_positive">Microscopía Positiva</string>
@@ -158,10 +133,8 @@
     <string name="score_title_avg">Media</string>
     <string name="score_title_environment">Entorno</string>
     <string name="score_title_profile">Perfil</string>
-    <string name="score_title_percentage">%</string>
     <string name="score_info_tab_score">Puntuación para pestaña:</string>
     <string name="score_info_overall">Total</string>
-    <string name="score_info_zero_float">0.0</string>
     <string name="score_info_accumulated">Pestaña num/dem</string>
     <string name="score_info_case1">Caso 1</string>
     <string name="score_info_case2">Caso 2</string>
@@ -185,12 +158,6 @@
 
     <string name="settings_array_values_font_sizes_def">@string/font_size_level2</string>
 
-    <string name="normal_font">Roboto-Medium.ttf</string>
-    <string name="light_font">Roboto-Light.ttf</string>
-    <string name="bold_font_name">Roboto-Bold.ttf</string>
-    <string name="medium_font_name">Roboto-Medium.ttf</string>
-    <string name="condensed_font_name">Roboto-Condensed.ttf</string>
-
     <string-array name="settings_array_values_font_sizes">
         <item>@string/font_size_level0</item>
         <item>@string/font_size_level1</item>
@@ -198,13 +165,5 @@
         <item>@string/font_size_level3</item>
         <item>@string/font_size_level4</item>
     </string-array>
-    <string name="font_size_level0">xsmall</string>
-    <string name="font_size_level1">small</string>
-    <string name="font_size_level2">medium</string>
-    <string name="font_size_level3">large</string>
-    <string name="font_size_level4">xlarge</string>
-
-    <string name="textcard_default_scale">system</string>
-    <string name="textcard_default_dimension">medium</string>
 
 </resources>
