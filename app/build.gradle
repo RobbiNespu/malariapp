@@ -9,6 +9,9 @@ android {
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"
+        // Enabling multidex support.
+        multiDexEnabled true
+
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -18,15 +21,24 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    //TODO This config is related to a known issue: http://stackoverflow.com/questions/20827885/android-studio-0-4-duplicate-files-copied-in-apk-meta-inf-license-txt
     packagingOptions {
+        //FIXME: This config is related to a known issue: http://stackoverflow.com/questions/20827885/android-studio-0-4-duplicate-files-copied-in-apk-meta-inf-license-txt
         exclude  'LICENSE.txt'
+
+        //FIXME: This has been automatically suggested by AndroidStudio while sdk integration
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
     }
     productFlavors {
     }
 }
 
 dependencies {
+
+    // sdk module
+    compile project(':sdk:app')
 
     compile 'com.android.support:support-v4:22.1.1'
     compile 'com.android.support:appcompat-v7:22.1.1'
@@ -37,6 +49,7 @@ dependencies {
     compile 'com.opencsv:opencsv:3.3'
     compile 'com.google.android.gms:play-services:7.0.0'
     compile 'com.google.guava:guava:18.0'
+    compile 'com.android.support:multidex:1.0.0'
 
     // Unit testing dependencies
     testCompile 'junit:junit:4.12'

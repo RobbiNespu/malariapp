@@ -92,6 +92,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         Log.d(".LoginActivity","onCreate");
         super.onCreate(savedInstanceState);
         BaseActivity.updateFontsByPreferences(this);
