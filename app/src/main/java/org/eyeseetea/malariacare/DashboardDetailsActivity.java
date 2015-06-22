@@ -29,6 +29,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import org.eyeseetea.malariacare.fragments.DashboardDetailsFragment;
+import org.hisp.dhis.android.sdk.controllers.Dhis2;
+import org.hisp.dhis.android.sdk.network.managers.NetworkManager;
 
 
 public class DashboardDetailsActivity extends BaseActivity {
@@ -43,6 +45,21 @@ public class DashboardDetailsActivity extends BaseActivity {
 //            finish();
 //            return;
 //        }
+        Dhis2.getInstance().enableLoading(this, Dhis2.LOAD_EVENTCAPTURE);
+        NetworkManager.getInstance().setCredentials(Dhis2.getCredentials(this));
+        NetworkManager.getInstance().setServerUrl(Dhis2.getServer(this));
+
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
+
+        Dhis2.activatePeriodicSynchronizer(this);
+        if (Dhis2.isInitialDataLoaded(this)) {
+            //showSelectProgramFragment();
+            Log.i(".DetailsActivity", "data is already loaded");
+        } else {
+            //loadInitialData();
+            Log.i(".DetailsActivity", "we must load data");
+        }
 
         if (savedInstanceState == null) {
             DashboardDetailsFragment detailsFragment = new DashboardDetailsFragment();

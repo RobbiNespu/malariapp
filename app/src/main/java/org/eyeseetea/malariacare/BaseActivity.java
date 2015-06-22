@@ -27,6 +27,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -38,11 +39,13 @@ import org.eyeseetea.malariacare.database.utils.Session;
 import org.eyeseetea.malariacare.layout.utils.LayoutUtils;
 import org.eyeseetea.malariacare.utils.Constants;
 import org.eyeseetea.malariacare.utils.Utils;
+import org.hisp.dhis.android.sdk.activities.INavigationHandler;
+import org.hisp.dhis.android.sdk.activities.OnBackPressedListener;
 
 import java.io.InputStream;
 
 
-public abstract class BaseActivity extends ActionBarActivity {
+public abstract class BaseActivity extends ActionBarActivity implements INavigationHandler{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -215,6 +218,16 @@ public abstract class BaseActivity extends ActionBarActivity {
      */
     private void debugMessage(String message){
         Log.d("." + this.getClass().getSimpleName(), message);
+    }
+
+    @Override
+    public void switchFragment(Fragment fragment, String tag, boolean addToBackStack){
+        Log.i(".BaseActivity", "switchFragment: \n fragment: " + fragment + "\n tag: " + tag + "addToBackStack: " + addToBackStack);
+    }
+
+    @Override
+    public void setBackPressedListener(OnBackPressedListener backPressedListener){
+        Log.i(".BaseActivity", "setBackPressedListener: \n backPressedListener: " + backPressedListener);
     }
 
 }

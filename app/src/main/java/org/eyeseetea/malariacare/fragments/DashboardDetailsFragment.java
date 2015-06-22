@@ -41,6 +41,7 @@ import org.eyeseetea.malariacare.R;
 import org.eyeseetea.malariacare.SurveyActivity;
 import org.eyeseetea.malariacare.database.model.Survey;
 import org.eyeseetea.malariacare.database.utils.Session;
+import org.eyeseetea.malariacare.layout.adapters.dashboard.AssessmentAdapter;
 import org.eyeseetea.malariacare.layout.adapters.dashboard.IDashboardAdapter;
 import org.eyeseetea.malariacare.layout.listeners.SwipeDismissListViewTouchListener;
 import org.eyeseetea.malariacare.services.SurveyService;
@@ -103,6 +104,9 @@ public class DashboardDetailsFragment extends ListFragment {
         super.onActivityCreated(savedInstanceState);
 
         Log.d(".DetailsFragment", "onActivityCreated");
+        // Get the not-sent surveys ordered by date
+        List <Survey> surveys = Survey.getAllUnsentSurveys();
+        Session.setAdapter(new AssessmentAdapter(surveys, getActivity()));
         IDashboardAdapter adapterE = Session.getAdapter().newInstance(this.surveys, getActivity());
         this.adapter = adapterE;
         initListView();
@@ -239,8 +243,8 @@ public class DashboardDetailsFragment extends ListFragment {
      * Asks SurveyService for the current list of surveys
      */
     private void getSurveysFromService(){
-        Activity activity=getActivity();
-        Intent surveysIntent=new Intent(activity, SurveyService.class);
+        Activity activity = getActivity();
+        Intent surveysIntent = new Intent(activity, SurveyService.class);
         surveysIntent.putExtra(SurveyService.SERVICE_METHOD,SurveyService.ALL_UNSENT_SURVEYS_ACTION);
         activity.startService(surveysIntent);
     }
