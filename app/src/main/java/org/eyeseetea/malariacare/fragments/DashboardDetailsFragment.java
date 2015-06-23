@@ -163,6 +163,7 @@ public class DashboardDetailsFragment extends ListFragment {
                 Log.e(".LoginActivity", "Error populating DB", e);
             }
         }
+
     }
 
     /**

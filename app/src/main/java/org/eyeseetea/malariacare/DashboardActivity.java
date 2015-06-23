@@ -20,26 +20,10 @@
 package org.eyeseetea.malariacare;
 
 import android.app.FragmentTransaction;
-import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.Window;
-import android.widget.ListView;
 
-import org.eyeseetea.malariacare.database.model.Survey;
 import org.eyeseetea.malariacare.fragments.DashboardFragment;
-import org.eyeseetea.malariacare.layout.adapters.dashboard.AssessmentAdapter;
-import org.eyeseetea.malariacare.layout.adapters.dashboard.DashboardAdapter;
-import org.eyeseetea.malariacare.layout.utils.LayoutUtils;
-import org.eyeseetea.malariacare.utils.Constants;
-import org.eyeseetea.malariacare.utils.ExceptionHandler;
-
-import java.util.List;
 
 
 public class DashboardActivity extends BaseActivity {
@@ -58,13 +42,6 @@ public class DashboardActivity extends BaseActivity {
             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
             ft.commit();
         }
-    }
-
-    /**
-     * Logs out, requires confirmation
-     */
-    public void onBackPressed(){
-        logout();
     }
 
 }

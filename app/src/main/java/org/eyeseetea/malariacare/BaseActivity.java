@@ -39,8 +39,9 @@ import org.eyeseetea.malariacare.database.utils.Session;
 import org.eyeseetea.malariacare.layout.utils.LayoutUtils;
 import org.eyeseetea.malariacare.utils.Constants;
 import org.eyeseetea.malariacare.utils.Utils;
-import org.hisp.dhis.android.sdk.activities.INavigationHandler;
-import org.hisp.dhis.android.sdk.activities.OnBackPressedListener;
+import org.hisp.dhis.android.sdk.activities.*;
+import org.hisp.dhis.android.sdk.controllers.Dhis2;
+import org.hisp.dhis.android.sdk.network.managers.NetworkManager;
 
 import java.io.InputStream;
 
@@ -107,7 +108,21 @@ public abstract class BaseActivity extends ActionBarActivity implements INavigat
                 break;
             case R.id.action_logout:
                 debugMessage("User asked for logout");
-                logout();
+                new AlertDialog.Builder(this)
+                        .setTitle(getApplicationContext().getString(R.string.settings_menu_logout))
+                        .setMessage(getApplicationContext().getString(R.string.dialog_content_logout_confirmation))
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                Session.logout();
+                                Dhis2.getInstance().setServer(null);
+                                Dhis2.getInstance().saveCredentials(getApplicationContext(), null, null, null);
+                                NetworkManager.getInstance().setCredentials(null);
+                                Dhis2.getInstance().getMetaDataController().resetLastUpdated(getApplicationContext());
+                                Dhis2.clearLoadFlags(getApplicationContext());
+                                finishAndGo(org.hisp.dhis.android.sdk.activities.LoginActivity.class);
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, null).create().show();
                 break;
             case android.R.id.home:
                 debugMessage("Go back");
@@ -151,23 +166,6 @@ public abstract class BaseActivity extends ActionBarActivity implements INavigat
     protected void goSettings(){
         startActivity(new Intent(this, SettingsActivity.class));
     }
-
-    /**
-     * Closes current session and goes back to loginactivity
-     */
-    protected void logout(){
-        new AlertDialog.Builder(this)
-                .setTitle(getApplicationContext().getString(R.string.settings_menu_logout))
-                .setMessage(getApplicationContext().getString(R.string.dialog_content_logout_confirmation))
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface arg0, int arg1) {
-                        Session.logout();
-                        finishAndGo(LoginActivity.class);
-                    }
-                })
-                .setNegativeButton(android.R.string.no, null).create().show();
-    }
-
 
     /**
      * Called when the user clicks the New Survey button

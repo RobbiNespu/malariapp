@@ -131,8 +131,8 @@
     <orderEntry type="library" exported="" name="play-services-gcm-7.0.0" level="project" />
     <orderEntry type="library" exported="" name="okio-1.2.0" level="project" />
     <orderEntry type="library" exported="" name="commons-digester-1.8" level="project" />
-    <orderEntry type="library" exported="" name="jackson-core-2.5.1" level="project" />
     <orderEntry type="library" exported="" name="guava-18.0" level="project" />
+    <orderEntry type="library" exported="" name="jackson-core-2.5.1" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="javax.annotation-api-1.2" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="exposed-instrumentation-api-publish-0.2" level="project" />
     <orderEntry type="library" exported="" name="jackson-databind-2.5.1" level="project" />
@@ -152,8 +152,8 @@
     <orderEntry type="library" exported="" name="jackson-annotations-2.5.1" level="project" />
     <orderEntry type="library" exported="" name="play-services-7.0.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-ads-7.0.0" level="project" />
-    <orderEntry type="library" exported="" name="commons-jexl-2.1.1" level="project" />
     <orderEntry type="library" exported="" name="okhttp-2.2.0" level="project" />
+    <orderEntry type="library" exported="" name="commons-jexl-2.1.1" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="rules-0.2" level="project" />
     <orderEntry type="library" exported="" name="otto-1.3.6" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="jsr305-2.0.1" level="project" />

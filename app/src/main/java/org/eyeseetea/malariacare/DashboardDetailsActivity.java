@@ -49,16 +49,12 @@ public class DashboardDetailsActivity extends BaseActivity {
         NetworkManager.getInstance().setCredentials(Dhis2.getCredentials(this));
         NetworkManager.getInstance().setServerUrl(Dhis2.getServer(this));
 
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-
         Dhis2.activatePeriodicSynchronizer(this);
         if (Dhis2.isInitialDataLoaded(this)) {
             //showSelectProgramFragment();
             Log.i(".DetailsActivity", "data is already loaded");
         } else {
             //loadInitialData();
-            Log.i(".DetailsActivity", "we must load data");
         }
 
         if (savedInstanceState == null) {
@@ -86,7 +82,6 @@ public class DashboardDetailsActivity extends BaseActivity {
         switch (id) {
             case R.id.action_update_metadata:
                 // TODO: Here we must take the user and get its allowed data from server
-
             default:
                 return super.onOptionsItemSelected(item);
         }
