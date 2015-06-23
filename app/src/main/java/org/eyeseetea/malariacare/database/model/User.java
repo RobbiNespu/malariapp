@@ -20,6 +20,8 @@
 package org.eyeseetea.malariacare.database.model;
 
 import com.orm.SugarRecord;
+import com.orm.query.Condition;
+import com.orm.query.Select;
 
 public class User extends SugarRecord<User> {
 
@@ -27,6 +29,10 @@ public class User extends SugarRecord<User> {
     String name;
 
     public User() {
+    }
+
+    public User(String name){
+        this.name = name;
     }
 
     public User(String uid, String name) {
@@ -50,6 +56,46 @@ public class User extends SugarRecord<User> {
         this.name = name;
     }
 
+    /**
+     * Returns the existing User in the database (first position of the list of users found searched
+     * by the given username, otherwise it creates a new user, sets its username and returns it
+     * @param username User name
+     * @return the existing user matching the given username, or a new user with that username
+     */
+    public static User getUser(String username){
+        return getUserOrCreate(username, true);
+    }
+
+    /**
+     * Returns the existing User in the database (first position of the list of users found searched
+     * by the given username, otherwise depending on the param create, it creates, saves and returns it,
+     * or it simply it returns an empty new user without saving it
+     * @param username User name
+     * @param create Var to decide whether or not create the user in case no user matched
+     * @return the existing user, a new user with that username already saved or an empty new user
+     */
+    public static User getUserOrCreate(String username, boolean create){
+        User user;
+        if (hasUser(username)){
+            user = Select.from(User.class).where(Condition.prop("name").eq(username)).list().get(0);
+        } else if (create){
+            user = new User(username);
+            user.save();
+        } else {
+            user = new User();
+        }
+        return user;
+    }
+
+    /**
+     * Returns a boolean saying whether or not there is a user in the DB with that username
+     * @param username User name
+     * @return the existance of that user in the DB
+     */
+    public static boolean hasUser (String username){
+        return (Select.from(User.class).where(Condition.prop("name").eq(username)).count() != 0);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -62,6 +108,7 @@ public class User extends SugarRecord<User> {
 
         return true;
     }
+
 
     @Override
     public int hashCode() {

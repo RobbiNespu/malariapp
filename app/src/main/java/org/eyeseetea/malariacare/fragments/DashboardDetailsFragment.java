@@ -40,12 +40,18 @@ import org.eyeseetea.malariacare.DashboardDetailsActivity;
 import org.eyeseetea.malariacare.R;
 import org.eyeseetea.malariacare.SurveyActivity;
 import org.eyeseetea.malariacare.database.model.Survey;
+import org.eyeseetea.malariacare.database.model.Tab;
+import org.eyeseetea.malariacare.database.model.User;
+import org.eyeseetea.malariacare.database.utils.PopulateDB;
 import org.eyeseetea.malariacare.database.utils.Session;
 import org.eyeseetea.malariacare.layout.adapters.dashboard.AssessmentAdapter;
 import org.eyeseetea.malariacare.layout.adapters.dashboard.IDashboardAdapter;
 import org.eyeseetea.malariacare.layout.listeners.SwipeDismissListViewTouchListener;
 import org.eyeseetea.malariacare.services.SurveyService;
+import org.hisp.dhis.android.sdk.controllers.Dhis2;
+import org.hisp.dhis.android.sdk.persistence.preferences.AppPreferences;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,6 +64,7 @@ public class DashboardDetailsFragment extends ListFragment {
     private List<Survey> surveys;
     protected IDashboardAdapter adapter;
     private static int index = 0;
+    private AppPreferences mPrefs;
 
     public DashboardDetailsFragment(){
         this.adapter = Session.getAdapter();
@@ -104,9 +111,10 @@ public class DashboardDetailsFragment extends ListFragment {
         super.onActivityCreated(savedInstanceState);
 
         Log.d(".DetailsFragment", "onActivityCreated");
-        // Get the not-sent surveys ordered by date
-        List <Survey> surveys = Survey.getAllUnsentSurveys();
-        Session.setAdapter(new AssessmentAdapter(surveys, getActivity()));
+
+        // In case this is a new access from login, we setup
+        initSession();
+
         IDashboardAdapter adapterE = Session.getAdapter().newInstance(this.surveys, getActivity());
         this.adapter = adapterE;
         initListView();
@@ -135,6 +143,26 @@ public class DashboardDetailsFragment extends ListFragment {
         unregisterSurveysReceiver();
 
         super.onStop();
+    }
+
+    /**
+     * Sets the first Session data in case this is they doesn't exist
+     */
+    private void initSession(){
+        // Get the not-sent surveys ordered by date
+        List <Survey> surveys = Survey.getAllUnsentSurveys();
+        Session.setAdapter(new AssessmentAdapter(surveys, getActivity()));
+        Session.setUser(User.getUser(Dhis2.getUsername(getActivity())));
+        if (Tab.count(Tab.class, null, null) == 0) {
+            // As this is only executed the first time the app is loaded, and we still don't have a way to create users, surveys, etc, here
+            // we will create a dummy user, survey, orgUnit, program, etc. To be used in local save
+            PopulateDB.populateDummyData();
+            try {
+                PopulateDB.populateDB(getActivity().getAssets());
+            } catch (IOException e) {
+                Log.e(".LoginActivity", "Error populating DB", e);
+            }
+        }
     }
 
     /**
