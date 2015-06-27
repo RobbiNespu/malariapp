@@ -119,7 +119,7 @@ public abstract class BaseActivity extends ActionBarActivity implements INavigat
                                 NetworkManager.getInstance().setCredentials(null);
                                 Dhis2.getInstance().getMetaDataController().resetLastUpdated(getApplicationContext());
                                 Dhis2.clearLoadFlags(getApplicationContext());
-                                finishAndGo(org.hisp.dhis.android.sdk.activities.LoginActivity.class);
+                                finishAndGo(LoginActivity.class);
                             }
                         })
                         .setNegativeButton(android.R.string.no, null).create().show();

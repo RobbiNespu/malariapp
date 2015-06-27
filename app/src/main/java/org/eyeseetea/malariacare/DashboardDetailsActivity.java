@@ -34,28 +34,24 @@ import org.hisp.dhis.android.sdk.network.managers.NetworkManager;
 
 
 public class DashboardDetailsActivity extends BaseActivity {
+    public final static String TAG = DashboardDetailsActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_dashboard_details);
 
-//        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-//            // If the screen is now in landscape mode, we can show the dialog in-line so we don't need this activity
-//            finish();
-//            return;
-//        }
-        Dhis2.getInstance().enableLoading(this, Dhis2.LOAD_EVENTCAPTURE);
+        //Dhis2.getInstance().enableLoading(this, Dhis2.LOAD_EVENTCAPTURE);
         NetworkManager.getInstance().setCredentials(Dhis2.getCredentials(this));
         NetworkManager.getInstance().setServerUrl(Dhis2.getServer(this));
 
-        Dhis2.activatePeriodicSynchronizer(this);
-        if (Dhis2.isInitialDataLoaded(this)) {
+        //Dhis2.activatePeriodicSynchronizer(this);
+        /*if (Dhis2.isInitialDataLoaded(this)) {
             //showSelectProgramFragment();
             Log.i(".DetailsActivity", "data is already loaded");
         } else {
             //loadInitialData();
-        }
+        }*/
 
         if (savedInstanceState == null) {
             DashboardDetailsFragment detailsFragment = new DashboardDetailsFragment();
