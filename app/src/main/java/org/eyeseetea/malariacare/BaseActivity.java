@@ -35,18 +35,31 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 
+import org.eyeseetea.malariacare.database.model.Survey;
+import org.eyeseetea.malariacare.database.model.Tab;
+import org.eyeseetea.malariacare.database.model.User;
+import org.eyeseetea.malariacare.database.utils.PopulateDB;
 import org.eyeseetea.malariacare.database.utils.Session;
+import org.eyeseetea.malariacare.layout.adapters.dashboard.AssessmentAdapter;
 import org.eyeseetea.malariacare.layout.utils.LayoutUtils;
 import org.eyeseetea.malariacare.utils.Constants;
 import org.eyeseetea.malariacare.utils.Utils;
+import org.hisp.dhis.android.sdk.activities.OnBackPressedListener;
 import org.hisp.dhis.android.sdk.activities.*;
 import org.hisp.dhis.android.sdk.controllers.Dhis2;
 import org.hisp.dhis.android.sdk.network.managers.NetworkManager;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 
-public abstract class BaseActivity extends ActionBarActivity implements INavigationHandler{
+public abstract class BaseActivity extends ActionBarActivity implements INavigationHandler {
+
+    /**
+     * Extra param to annotate the activity to return after settings
+     */
+    public static final String SETTINGS_CALLER_ACTIVITY = "SETTINGS_CALLER_ACTIVITY";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,32 +67,27 @@ public abstract class BaseActivity extends ActionBarActivity implements INavigat
         requestWindowFeature(Window.FEATURE_ACTIVITY_TRANSITIONS);
         super.onCreate(savedInstanceState);
 
-        initView();
-        updateFontsByPreferences(this);
+        initView(savedInstanceState);
     }
 
     /**
      * Common styling
      */
-    private void initView(){
+    private void initView(Bundle savedInstanceState){
         setTheme(R.style.EyeSeeTheme);
         android.support.v7.app.ActionBar actionBar = this.getSupportActionBar();
         LayoutUtils.setActionBarLogo(actionBar);
+
+        if (savedInstanceState == null){
+            initTransition();
+        }
     }
 
     /**
-     * Loads visual preferences
+     * Customize transitions for these activities
      */
-    public static void updateFontsByPreferences(Activity activity){
-        // Update font size in case this could have been changed by the user
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(activity);
-        if (sharedPreferences.getBoolean(activity.getString(R.string.customize_fonts), false)) {
-            Session.setFontSize(sharedPreferences.getString(activity.getString(R.string.font_sizes), Constants.FONTS_SYSTEM));
-        }else{
-            Session.setFontSize(Constants.FONTS_SYSTEM);
-        }
-        Log.d(".BaseActivity", "Font size: " + sharedPreferences.getString(activity.getString(R.string.font_sizes), Constants.FONTS_SYSTEM));
-        Log.d(".BaseActivity", "Show num/dems: " + Boolean.toString(sharedPreferences.getBoolean(activity.getString(R.string.show_num_dems), false)));
+    protected void initTransition(){
+        this.overridePendingTransition(R.transition.anim_slide_in_left, R.transition.anim_slide_out_left);
     }
 
     @Override
@@ -164,8 +172,27 @@ public abstract class BaseActivity extends ActionBarActivity implements INavigat
     }
 
     protected void goSettings(){
+        Intent intentSettings=new Intent(this,SettingsActivity.class);
+        intentSettings.putExtra(SETTINGS_CALLER_ACTIVITY,this.getClass());
         startActivity(new Intent(this, SettingsActivity.class));
     }
+
+    /**
+     * Closes current session and goes back to loginactivity
+     */
+    protected void logout(){
+        new AlertDialog.Builder(this)
+                .setTitle(getApplicationContext().getString(R.string.settings_menu_logout))
+                .setMessage(getApplicationContext().getString(R.string.dialog_content_logout_confirmation))
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        Session.logout();
+                        finishAndGo(LoginActivity.class);
+                    }
+                })
+                .setNegativeButton(android.R.string.no, null).create().show();
+    }
+
 
     /**
      * Called when the user clicks the New Survey button
@@ -227,5 +254,4 @@ public abstract class BaseActivity extends ActionBarActivity implements INavigat
     public void setBackPressedListener(OnBackPressedListener backPressedListener){
         Log.i(".BaseActivity", "setBackPressedListener: \n backPressedListener: " + backPressedListener);
     }
-
 }

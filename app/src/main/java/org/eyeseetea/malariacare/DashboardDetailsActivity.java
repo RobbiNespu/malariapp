@@ -23,6 +23,7 @@ import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -41,10 +42,9 @@ public class DashboardDetailsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_dashboard_details);
 
-        //Dhis2.getInstance().enableLoading(this, Dhis2.LOAD_EVENTCAPTURE);
+        Dhis2.getInstance().enableLoading(this, Dhis2.LOAD_EVENTCAPTURE);
         NetworkManager.getInstance().setCredentials(Dhis2.getCredentials(this));
         NetworkManager.getInstance().setServerUrl(Dhis2.getServer(this));
-
         //Dhis2.activatePeriodicSynchronizer(this);
         /*if (Dhis2.isInitialDataLoaded(this)) {
             //showSelectProgramFragment();
@@ -61,6 +61,11 @@ public class DashboardDetailsActivity extends BaseActivity {
             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
             ft.commit();
         }
+    }
+
+@Override
+    protected void initTransition(){
+        this.overridePendingTransition(R.transition.anim_slide_in_right, R.transition.anim_slide_out_right);
     }
 
     @Override
