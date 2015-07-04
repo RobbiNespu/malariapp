@@ -19,25 +19,12 @@
 
 package org.eyeseetea.malariacare;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.AsyncTask;
-
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.text.TextUtils;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -55,6 +42,7 @@ import org.hisp.dhis.android.sdk.persistence.Dhis2Application;
 import org.hisp.dhis.android.sdk.persistence.models.User;
 import org.hisp.dhis.android.sdk.persistence.preferences.AppPreferences;
 import org.hisp.dhis.android.sdk.utils.APIException;
+
 
 /**
  *
@@ -86,13 +74,13 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     @Override
     public void onPause() {
         super.onPause();
-        Dhis2Application.bus.unregister(this);
+        Dhis2Application.getEventBus().unregister(this);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Dhis2Application.bus.register(this);
+        Dhis2Application.getEventBus().register(this);
     }
 
 
@@ -161,7 +149,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     @Subscribe
     public void onReceiveResponse(ResponseEvent event) {
         Log.e(CLASS_TAG, "on Login!");
-
         if (event.getResponseHolder().getItem() != null) {
             if (event.eventType == ResponseEvent.EventType.onLogin) {
                 User user = (User) event.getResponseHolder().getItem();
@@ -224,7 +211,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     public void launchMainActivity() {
         startActivity(new Intent(LoginActivity.this,
-                ((Dhis2Application) getApplication()).getMainActivity()));
+                ((MalariaApplication) getApplication()).getMainActivity()));
         finish();
     }
 

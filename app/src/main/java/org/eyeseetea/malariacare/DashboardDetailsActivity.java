@@ -28,8 +28,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import org.eyeseetea.malariacare.fragments.DashboardSentFragment;
 import org.eyeseetea.malariacare.fragments.DashboardDetailsFragment;
+import org.eyeseetea.malariacare.fragments.DashboardSentFragment;
 import org.hisp.dhis.android.sdk.controllers.Dhis2;
 import org.hisp.dhis.android.sdk.network.managers.NetworkManager;
 

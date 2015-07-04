@@ -24,8 +24,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import com.orm.SugarApp;
-
+import org.eyeseetea.malariacare.MalariaApplication;
 import org.eyeseetea.malariacare.R;
 import org.eyeseetea.malariacare.utils.Constants;
 
@@ -68,7 +67,7 @@ public class PreferencesState {
     public void reloadPreferences(){
         scale= initScale();
         showNumDen=initShowNumDen();
-        Log.d(TAG,"reloadPreferences: scale:"+scale+" | showNumDen:"+showNumDen);
+        Log.d(TAG, "reloadPreferences: scale:" + scale + " | showNumDen:" + showNumDen);
     }
 
     /**
@@ -76,7 +75,7 @@ public class PreferencesState {
      * @return
      */
     private String initScale(){
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(SugarApp.getSugarContext());
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MalariaApplication.getSugarContext());
         if (sharedPreferences.getBoolean(Constants.PREFERENCE_CUSTOMIZE_FONTS, false)) {
             return sharedPreferences.getString(Constants.PREFERENCE_FONT_SIZES, Constants.FONTS_SYSTEM);
         }
@@ -89,7 +88,7 @@ public class PreferencesState {
      * @return
      */
     private boolean initShowNumDen(){
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(SugarApp.getSugarContext());
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MalariaApplication.getSugarContext());
         return sharedPreferences.getBoolean(Constants.PREFERENCE_SHOW_NUM_DEN, false);
     }
 
@@ -99,7 +98,7 @@ public class PreferencesState {
      */
     private Map<String, Map<String, Float>> initScaleDimensionsMap(){
         Map<String, Float> xsmall = new HashMap<>();
-        Context ctx= SugarApp.getSugarContext();
+        Context ctx = MalariaApplication.getSugarContext();
         xsmall.put(Constants.FONTS_XSMALL, ctx.getResources().getDimension(R.dimen.xsmall_xsmall_text_size));
         xsmall.put(Constants.FONTS_SMALL, ctx.getResources().getDimension(R.dimen.xsmall_small_text_size));
         xsmall.put(Constants.FONTS_MEDIUM, ctx.getResources().getDimension(R.dimen.xsmall_medium_text_size));

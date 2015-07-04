@@ -272,6 +272,10 @@ public class DashboardSentFragment extends ListFragment {
         activity.startService(surveysIntent);
     }
 
+    /**
+     *
+     * @param newListSurveys
+     */
     public void reloadSurveys(List<Survey> newListSurveys){
         Log.d(TAG, "reloadSurveys (Thread: "+Thread.currentThread().getId()+"): " + newListSurveys.size());
         this.surveys.clear();
@@ -279,6 +283,7 @@ public class DashboardSentFragment extends ListFragment {
         this.adapter.notifyDataSetChanged();
         setListShown(true);
     }
+
     /**
      * Inner private class that receives the result from the service
      */
