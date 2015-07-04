@@ -1,14 +1,14 @@
 /*
  * Copyright (c) 2015.
  *
- * This file is part of Facility QA Tool App.
+ * This file is part of Health Network QIS App.
  *
- *  Facility QA Tool App is free software: you can redistribute it and/or modify
+ *  Health Network QIS App is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  Facility QA Tool App is distributed in the hope that it will be useful,
+ *  Health Network QIS App is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
@@ -19,29 +19,28 @@
 
 package org.eyeseetea.malariacare.layout.adapters.dashboard;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import org.eyeseetea.malariacare.R;
 import org.eyeseetea.malariacare.database.model.Survey;
-import org.eyeseetea.malariacare.layout.utils.LayoutUtils;
-import org.eyeseetea.malariacare.views.TextCard;
 
 import java.util.List;
 
-public class AssessmentAdapter extends AAssessmentAdapter implements IAssessmentAdapter {
+public class AssessmentSentAdapter extends AAssessmentAdapter implements IAssessmentAdapter {
 
-    public AssessmentAdapter(List<Survey> items, Context context) {
-        super(items, context);
+    public AssessmentSentAdapter(List<Survey> items, Context context) {
+        this.items = items;
+        this.context = context;
+        this.lInflater = LayoutInflater.from(context);
+        this.headerLayout = R.layout.assessment_sent_header;
+        this.recordLayout = R.layout.assessment_record;
+        this.footerLayout = R.layout.assessment_sent_footer;
+        this.title = context.getString(R.string.assessment_sent_title_header);
     }
 
     @Override
     public IDashboardAdapter newInstance(List items, Context context) {
-        return new AssessmentAdapter((List<Survey>) items, context);
+        return new AssessmentSentAdapter((List<Survey>) items, context);
     }
 }

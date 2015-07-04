@@ -2,6 +2,8 @@
 <resources>
 
     <!-- # general -->
+    <string name="app_name">Health Network QIS</string>
+    <string name="developers">EyeSeeTea LTD</string>
     <string name="empty_string"></string>
     <string name="yes">Sí</string>
     <string name="no">No</string>
@@ -166,5 +168,8 @@
         <item>@string/font_size_level3</item>
         <item>@string/font_size_level4</item>
     </string-array>
+
+    <string name="assessment_sent_title_state">Estado</string>
+    <string name="assessment_sent_title_header">Evaluación Enviada</string>
 
 </resources>

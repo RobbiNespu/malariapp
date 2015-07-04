@@ -23,12 +23,12 @@ import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import org.eyeseetea.malariacare.fragments.DashboardSentFragment;
 import org.eyeseetea.malariacare.fragments.DashboardDetailsFragment;
 import org.hisp.dhis.android.sdk.controllers.Dhis2;
 import org.hisp.dhis.android.sdk.network.managers.NetworkManager;
@@ -60,6 +60,12 @@ public class DashboardDetailsActivity extends BaseActivity {
             ft.add(R.id.dashboard_details_container, detailsFragment);
             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
             ft.commit();
+            DashboardSentFragment completedFragment = new DashboardSentFragment();
+            detailsFragment.setArguments(getIntent().getExtras());
+            FragmentTransaction ftr = getFragmentManager().beginTransaction();
+            ftr.add(R.id.dashboard_completed_container, completedFragment);
+            ftr.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            ftr.commit();
         }
     }
 
