@@ -27,6 +27,7 @@
     <string name="settings_menu_update_questions">Update questions (DHIS)</string>
     <string name="settings_menu_update_metadata">Update metadata</string>
     <string name="settings_menu_logout">Logout</string>
+    <string name="settings_default_server" translatable="false">https://qoc.psi-mis.org</string>
 
     <!-- login -->
     <string name="login_info_dhis_server">DHIS Server</string>
