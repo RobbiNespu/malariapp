@@ -22,29 +22,25 @@ package org.eyeseetea.malariacare;
 import android.app.Activity;
 
 import com.raizlabs.android.dbflow.config.FlowManager;
-import com.squareup.otto.Bus;
-import com.squareup.otto.ThreadEnforcer;
 
-import org.hisp.dhis.android.sdk.controllers.Dhis2;
 import org.hisp.dhis.android.sdk.persistence.IDhis2Application;
-import org.hisp.dhis.android.sdk.utils.MainThreadBus;
 
 /**
  * Created by nacho on 22/06/15.
  */
 public class MalariaApplication extends com.orm.SugarApp implements IDhis2Application {
 
-    public static Bus bus;
+    /*public static Bus bus;
     public static Dhis2 dhis2;
 
     static {
         bus = new MainThreadBus(ThreadEnforcer.ANY);
         dhis2 = new Dhis2();
         bus.register(dhis2);
-    }
+    }*/
 
     public Class<? extends Activity> getMainActivity() {
-        return new DashboardDetailsActivity().getClass();
+        return new DashboardActivity().getClass();
     }
 
     @Override

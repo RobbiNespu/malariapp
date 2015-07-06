@@ -29,7 +29,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
-import org.eyeseetea.malariacare.DashboardDetailsActivity;
+import org.eyeseetea.malariacare.DashboardActivity;
 import org.eyeseetea.malariacare.R;
 import org.eyeseetea.malariacare.database.model.Survey;
 import org.eyeseetea.malariacare.database.utils.Session;
@@ -124,11 +124,11 @@ public class DashboardFragment extends ListFragment {
 
             // Check what fragment is currently shown, replace if needed.
             IDashboardAdapter adapter = (IDashboardAdapter) getListView().getSelectedItem();
-            DashboardDetailsFragment details = (DashboardDetailsFragment)
+            DashboardUnsentFragment details = (DashboardUnsentFragment)
                     getFragmentManager().findFragmentById(R.id.details);
             if (details == null || details.getShownIndex() != index) {
                 // Make new fragment to show this selection.
-                details = DashboardDetailsFragment.newInstance(index);
+                details = DashboardUnsentFragment.newInstance(index);
 
                 // Execute a transaction, replacing any existing fragment
                 // with this one inside the frame.
@@ -148,7 +148,7 @@ public class DashboardFragment extends ListFragment {
             // Otherwise we need to launch a new activity to display
             // the dialog fragment with selected text.
             Intent intent = new Intent();
-            intent.setClass(getActivity(), DashboardDetailsActivity.class);
+            intent.setClass(getActivity(), DashboardActivity.class);
             intent.putExtra("index", index);
             Session.setAdapterUnsent(adapters.get(index));
             startActivity(intent);

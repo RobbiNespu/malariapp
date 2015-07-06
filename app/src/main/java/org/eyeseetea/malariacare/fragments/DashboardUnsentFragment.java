@@ -36,7 +36,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
-import org.eyeseetea.malariacare.DashboardDetailsActivity;
+import org.eyeseetea.malariacare.DashboardActivity;
 import org.eyeseetea.malariacare.R;
 import org.eyeseetea.malariacare.SurveyActivity;
 import org.eyeseetea.malariacare.database.model.Survey;
@@ -59,7 +59,7 @@ import java.util.List;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class DashboardDetailsFragment extends ListFragment {
+public class DashboardUnsentFragment extends ListFragment {
 
 
     public static final String TAG = ".DetailsFragment";
@@ -69,13 +69,13 @@ public class DashboardDetailsFragment extends ListFragment {
     private static int index = 0;
     private AppPreferences mPrefs;
 
-    public DashboardDetailsFragment(){
+    public DashboardUnsentFragment(){
         this.adapter = Session.getAdapterUnsent();
         this.surveys = new ArrayList();
     }
 
-    public static DashboardDetailsFragment newInstance(int index) {
-        DashboardDetailsFragment f = new DashboardDetailsFragment();
+    public static DashboardUnsentFragment newInstance(int index) {
+        DashboardUnsentFragment f = new DashboardUnsentFragment();
 
         // Supply index input as an argument.
         Bundle args = new Bundle();
@@ -155,7 +155,7 @@ public class DashboardDetailsFragment extends ListFragment {
         //Put selected survey in session
         Session.setSurvey(surveys.get(position - 1));
         //Go to SurveyActivity
-        ((DashboardDetailsActivity) getActivity()).go(SurveyActivity.class);
+        ((DashboardActivity) getActivity()).go(SurveyActivity.class);
     }
 
     @Override

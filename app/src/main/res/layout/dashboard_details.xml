@@ -23,7 +23,7 @@
     android:layout_width="fill_parent" android:layout_height="fill_parent"
     android:orientation="horizontal">
 
-    <fragment android:name="org.eyeseetea.malariacare.fragments.DashboardDetailsFragment"
+    <fragment android:name="org.eyeseetea.malariacare.fragments.DashboardUnsentFragment"
               android:id="@+id/dashboard_details_fragment"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent" />

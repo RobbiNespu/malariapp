@@ -19,7 +19,7 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="org.eyeseetea.malariacare.DashboardDetailsActivity">
+    tools:context="org.eyeseetea.malariacare.DashboardActivity">
     <item android:id="@+id/action_update_metadata" android:title="@string/settings_menu_update_metadata"
       android:orderInCategory="90"/>
 </menu>

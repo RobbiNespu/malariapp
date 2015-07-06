@@ -55,7 +55,6 @@ import org.eyeseetea.malariacare.utils.Constants;
 import org.eyeseetea.malariacare.utils.Utils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -158,7 +157,7 @@ public class SurveyActivity extends BaseActivity{
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int arg1) {
                         unregisterReceiver();
-                        finishAndGo(DashboardDetailsActivity.class);
+                        finishAndGo(DashboardActivity.class);
                     }
                 }).create().show();
     }

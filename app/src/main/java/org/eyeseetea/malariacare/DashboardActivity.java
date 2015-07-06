@@ -19,29 +19,99 @@
 
 package org.eyeseetea.malariacare;
 
+import android.app.AlertDialog;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 
-import org.eyeseetea.malariacare.fragments.DashboardFragment;
+import org.eyeseetea.malariacare.fragments.DashboardUnsentFragment;
+import org.eyeseetea.malariacare.fragments.DashboardSentFragment;
+import org.hisp.dhis.android.sdk.controllers.Dhis2;
+import org.hisp.dhis.android.sdk.network.managers.NetworkManager;
 
 
 public class DashboardActivity extends BaseActivity {
+    public final static String TAG = DashboardActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d(".DashboardActivity","onCreate");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_dashboard);
+        setContentView(R.layout.fragment_dashboard_details);
+
+        Dhis2.getInstance().enableLoading(this, Dhis2.LOAD_EVENTCAPTURE);
+        NetworkManager.getInstance().setCredentials(Dhis2.getCredentials(this));
+        NetworkManager.getInstance().setServerUrl(Dhis2.getServer(this));
+        //Dhis2.activatePeriodicSynchronizer(this);
+        /*if (Dhis2.isInitialDataLoaded(this)) {
+            //showSelectProgramFragment();
+            Log.i(".DetailsActivity", "data is already loaded");
+        } else {
+            //loadInitialData();
+        }*/
 
         if (savedInstanceState == null) {
-            DashboardFragment dashboard = new DashboardFragment();
-            dashboard.setArguments(getIntent().getExtras());
+            DashboardUnsentFragment detailsFragment = new DashboardUnsentFragment();
+            detailsFragment.setArguments(getIntent().getExtras());
             FragmentTransaction ft = getFragmentManager().beginTransaction();
-            ft.add(R.id.dashboard_container, dashboard);
+            ft.add(R.id.dashboard_details_container, detailsFragment);
             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
             ft.commit();
+            DashboardSentFragment completedFragment = new DashboardSentFragment();
+            detailsFragment.setArguments(getIntent().getExtras());
+            FragmentTransaction ftr = getFragmentManager().beginTransaction();
+            ftr.add(R.id.dashboard_completed_container, completedFragment);
+            ftr.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            ftr.commit();
         }
     }
 
+@Override
+    protected void initTransition(){
+        this.overridePendingTransition(R.transition.anim_slide_in_right, R.transition.anim_slide_out_right);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_dashboard_details, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        switch (id) {
+            case R.id.action_update_metadata:
+                // TODO: Here we must take the user and get its allowed data from server
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    /**
+     * Just to avoid trying to navigate back from the dashboard. There's no parent activity here
+     */
+    @Override
+    public void onBackPressed() {
+        Log.d(".DashboardDetails", "back pressed");
+        new AlertDialog.Builder(this)
+                .setTitle("Really Exit?")
+                .setMessage("Are you sure you want to exit the app?")
+                .setNegativeButton(android.R.string.no, null)
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        Intent intent = new Intent(Intent.ACTION_MAIN);
+                        intent.addCategory(Intent.CATEGORY_HOME);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }
+                }).create().show();
+    }
 }
