@@ -171,7 +171,7 @@ public class DashboardActivityExpressoTest extends MalariaEspressoTest{
     private void unregisterSurveyReceiver(){
         try{
             DashboardActivity dashboardActivity =(DashboardActivity)getActivityInstance();
-            DashboardUnsentFragment dashboardUnsentFragment =(DashboardUnsentFragment) dashboardActivity.getFragmentManager().findFragmentById(R.id.dashboard_details_fragment);
+            DashboardUnsentFragment dashboardUnsentFragment =(DashboardUnsentFragment) dashboardActivity.getFragmentManager().findFragmentById(R.id.dashboard_unsent_fragment);
             dashboardUnsentFragment.unregisterSurveysReceiver();
         }catch(Exception ex){
             Log.e(TAG,"unregisterSurveyReceiver(): "+ex.getMessage());

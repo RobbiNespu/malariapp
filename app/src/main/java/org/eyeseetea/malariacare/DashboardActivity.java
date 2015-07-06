@@ -40,7 +40,7 @@ public class DashboardActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_dashboard_details);
+        setContentView(R.layout.fragment_dashboard);
 
         Dhis2.getInstance().enableLoading(this, Dhis2.LOAD_EVENTCAPTURE);
         NetworkManager.getInstance().setCredentials(Dhis2.getCredentials(this));
@@ -54,16 +54,16 @@ public class DashboardActivity extends BaseActivity {
         }*/
 
         if (savedInstanceState == null) {
-            DashboardUnsentFragment detailsFragment = new DashboardUnsentFragment();
-            detailsFragment.setArguments(getIntent().getExtras());
+            DashboardUnsentFragment unsentFragment = new DashboardUnsentFragment();
+            unsentFragment.setArguments(getIntent().getExtras());
             FragmentTransaction ft = getFragmentManager().beginTransaction();
-            ft.add(R.id.dashboard_details_container, detailsFragment);
+            ft.add(R.id.dashboard_details_container, unsentFragment);
             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
             ft.commit();
-            DashboardSentFragment completedFragment = new DashboardSentFragment();
-            detailsFragment.setArguments(getIntent().getExtras());
+            DashboardSentFragment sentFragment = new DashboardSentFragment();
+            sentFragment.setArguments(getIntent().getExtras());
             FragmentTransaction ftr = getFragmentManager().beginTransaction();
-            ftr.add(R.id.dashboard_completed_container, completedFragment);
+            ftr.add(R.id.dashboard_completed_container, sentFragment);
             ftr.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
             ftr.commit();
         }
