@@ -97,7 +97,7 @@
                 android:value="org.eyeseetea.malariacare.DashboardActivity" />
         </activity>
 
-        <service android:name=".services.SurveyService" android:exported="false"/>
+        <service android:name="org.eyeseetea.malariacare.services.SurveyService" android:exported="false"/>
 
     </application>
 
