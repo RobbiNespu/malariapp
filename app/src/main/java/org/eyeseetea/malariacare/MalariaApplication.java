@@ -21,6 +21,7 @@ package org.eyeseetea.malariacare;
 
 import android.app.Activity;
 
+import com.orm.SugarApp;
 import com.raizlabs.android.dbflow.config.FlowManager;
 
 import org.hisp.dhis.android.sdk.persistence.IDhis2Application;
@@ -28,7 +29,7 @@ import org.hisp.dhis.android.sdk.persistence.IDhis2Application;
 /**
  * Created by nacho on 22/06/15.
  */
-public class MalariaApplication extends com.orm.SugarApp implements IDhis2Application {
+public class MalariaApplication extends SugarApp implements IDhis2Application {
 
     /*public static Bus bus;
     public static Dhis2 dhis2;
