@@ -339,7 +339,6 @@ public class Question extends SugarRecord<Question> {
         }
     }
 
-
     @Override
     public String toString() {
         return "Question{" +

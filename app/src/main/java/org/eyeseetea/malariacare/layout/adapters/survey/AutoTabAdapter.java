@@ -44,6 +44,7 @@ import org.eyeseetea.malariacare.R;
 import org.eyeseetea.malariacare.database.model.Header;
 import org.eyeseetea.malariacare.database.model.Option;
 import org.eyeseetea.malariacare.database.model.Question;
+import org.eyeseetea.malariacare.database.model.Survey;
 import org.eyeseetea.malariacare.database.model.Tab;
 import org.eyeseetea.malariacare.database.model.Value;
 import org.eyeseetea.malariacare.database.utils.PreferencesState;
@@ -56,6 +57,7 @@ import org.eyeseetea.malariacare.layout.utils.LayoutUtils;
 import org.eyeseetea.malariacare.utils.Constants;
 import org.eyeseetea.malariacare.utils.Utils;
 import org.eyeseetea.malariacare.views.filters.MinMaxInputFilter;
+import org.eyeseetea.malariacare.views.types.SurveyViewTypes;
 
 import java.util.List;
 
@@ -512,105 +514,99 @@ public class AutoTabAdapter extends BaseAdapter implements ITabAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View rowView = null;
 
+        //Reuse view if possible
+        int viewType=getItemViewType(position);
+        if(convertView==null){
+            rowView=lInflater.inflate(SurveyViewTypes.getLayoutByViewType(viewType), parent, false);
+        }else{
+            rowView=convertView;
+        }
+
+        //Update info according to the type
         final Object item = getItem(position);
-        Question question;
         ViewHolder viewHolder = new ViewHolder();
 
+
+        //Header
         if (item instanceof Header) {
             rowView = lInflater.inflate(R.layout.headers, parent, false);
             viewHolder.statement = (TextView) rowView.findViewById(R.id.headerName);
             viewHolder.statement.setText(((Header) item).getName());
-        } else {
-
-            question = (Question) item;
-
-            //FIXME This should be moved into its own class (Ex: ViewHolderFactory.getView(item))
-            switch (question.getAnswer().getOutput()) {
-
-                case Constants.LONG_TEXT:
-                    rowView = initialiseView(R.layout.longtext, parent, question, viewHolder, position);
-
-                    //Add main component and listener
-                    ((EditText) viewHolder.component).addTextChangedListener(new TextViewListener(false, question));
-                    break;
-                case Constants.NO_ANSWER:
-                    rowView = initialiseView(R.layout.label, parent, question, viewHolder, position);
-                    break;
-                case Constants.POSITIVE_INT:
-                    rowView = initialiseView(R.layout.integer, parent, question, viewHolder, position);
-
-                    //Add main component, set filters and listener
-                    ((EditText) viewHolder.component).setFilters(new InputFilter[]{
-                            new InputFilter.LengthFilter(Constants.MAX_INT_CHARS),
-                            new MinMaxInputFilter(1, null)
-                    });
-                    ((EditText) viewHolder.component).addTextChangedListener(new TextViewListener(false, question));
-                    break;
-                case Constants.INT:
-                    rowView = initialiseView(R.layout.integer, parent, question, viewHolder, position);
-
-                    //Add main component, set filters and listener
-                    ((EditText) viewHolder.component).setFilters(new InputFilter[]{
-                            new InputFilter.LengthFilter(Constants.MAX_INT_CHARS)
-                    });
-                    ((EditText) viewHolder.component).addTextChangedListener(new TextViewListener(false, question));
-                    break;
-                case Constants.DATE:
-                    rowView = initialiseView(R.layout.date, parent, question, viewHolder, position);
-
-                    //Add main component and listener
-                    ((EditText) viewHolder.component).addTextChangedListener(new TextViewListener(false, question));
-                    break;
-
-                case Constants.SHORT_TEXT:
-                    rowView = initialiseView(R.layout.shorttext, parent, question, viewHolder, position);
-
-                    //Add main component and listener
-                    ((EditText) viewHolder.component).addTextChangedListener(new TextViewListener(false, question));
-                    break;
-
-                case Constants.DROPDOWN_LIST:
-                    rowView = initialiseView(R.layout.ddl, parent, question, viewHolder, position);
-
-                    initialiseScorableComponent(rowView, viewHolder);
-
-                    // In case the option is selected, we will need to show num/dems
-                    List<Option> optionList = question.getAnswer().getOptions();
-                    optionList.add(0, new Option(Constants.DEFAULT_SELECT_OPTION));
-                    Spinner spinner = (Spinner) viewHolder.component;
-                    spinner.setAdapter(new OptionArrayAdapter(context, optionList));
-
-                    //Add Listener
-                    if (!question.hasRelatives())
-                        ((Spinner) viewHolder.component).setOnItemSelectedListener(new SpinnerListener(false, question, viewHolder));
-                    else
-                        autoFillAnswer(viewHolder, question);
-                    break;
-                case Constants.RADIO_GROUP_HORIZONTAL:
-                    rowView = initialiseView(R.layout.radio, parent, question, viewHolder, position);
-
-                    initialiseScorableComponent(rowView, viewHolder);
-
-                    createRadioGroupComponent(question, viewHolder, LinearLayout.HORIZONTAL);
-                    break;
-                case Constants.RADIO_GROUP_VERTICAL:
-                    rowView = initialiseView(R.layout.radio, parent, question, viewHolder, position);
-
-                    initialiseScorableComponent(rowView, viewHolder);
-
-                    createRadioGroupComponent(question, viewHolder, LinearLayout.VERTICAL);
-                    break;
-
-                default:
-                    break;
-            }
-
-            //Put current value in the component
-            setValues(viewHolder, question);
-            //Disables component if survey has already been sent
-            updateReadOnly(viewHolder.component);
-
+            return rowView;
         }
+
+        //Question
+        Question question = (Question) item;
+        rowView = initialiseViewHolder(rowView,question, viewHolder, position);
+
+        //FIXME This should be moved into its own class (Ex: ViewHolderFactory.getView(item))
+        switch (question.getAnswer().getOutput()) {
+
+            case Constants.LONG_TEXT:
+                //Add main component and listener
+                ((EditText) viewHolder.component).addTextChangedListener(new TextViewListener(false, question));
+                break;
+            case Constants.NO_ANSWER:
+                rowView = initialiseView(R.layout.label, parent, question, viewHolder, position);
+                break;
+            case Constants.POSITIVE_INT:
+                //Add main component, set filters and listener
+                ((EditText) viewHolder.component).setFilters(new InputFilter[]{
+                        new InputFilter.LengthFilter(Constants.MAX_INT_CHARS),
+                        new MinMaxInputFilter(1, null)
+                });
+                ((EditText) viewHolder.component).addTextChangedListener(new TextViewListener(false, question));
+                break;
+            case Constants.INT:
+                //Add main component, set filters and listener
+                ((EditText) viewHolder.component).setFilters(new InputFilter[]{
+                        new InputFilter.LengthFilter(Constants.MAX_INT_CHARS)
+                });
+                ((EditText) viewHolder.component).addTextChangedListener(new TextViewListener(false, question));
+                break;
+            case Constants.DATE:
+                //Add main component and listener
+                ((EditText) viewHolder.component).addTextChangedListener(new TextViewListener(false, question));
+                break;
+
+            case Constants.SHORT_TEXT:
+                //Add main component and listener
+                ((EditText) viewHolder.component).addTextChangedListener(new TextViewListener(false, question));
+                break;
+
+            case Constants.DROPDOWN_LIST:
+                initialiseScorableComponent(rowView, viewHolder);
+
+                // In case the option is selected, we will need to show num/dems
+                List<Option> optionList = question.getAnswer().getOptions();
+                optionList.add(0, new Option(Constants.DEFAULT_SELECT_OPTION));
+                Spinner spinner = (Spinner) viewHolder.component;
+                spinner.setAdapter(new OptionArrayAdapter(context, optionList));
+
+                //Add Listener
+                if (!question.hasRelatives())
+                    ((Spinner) viewHolder.component).setOnItemSelectedListener(new SpinnerListener(false, question, viewHolder));
+                else
+                    autoFillAnswer(viewHolder, question);
+                break;
+            case Constants.RADIO_GROUP_HORIZONTAL:
+                initialiseScorableComponent(rowView, viewHolder);
+                createRadioGroupComponent(question, viewHolder, LinearLayout.HORIZONTAL);
+                break;
+            case Constants.RADIO_GROUP_VERTICAL:
+
+                initialiseScorableComponent(rowView, viewHolder);
+                createRadioGroupComponent(question, viewHolder, LinearLayout.VERTICAL);
+                break;
+
+            default:
+                break;
+        }
+
+        //Put current value in the component
+        setValues(viewHolder, question);
+        //Disables component if survey has already been sent
+//        updateReadOnly(viewHolder.component);
 
         return rowView;
     }
@@ -638,16 +634,26 @@ public class AutoTabAdapter extends BaseAdapter implements ITabAdapter {
 
     private View initialiseView(int resource, ViewGroup parent, Question question, ViewHolder viewHolder, int position) {
         View rowView = lInflater.inflate(resource, parent, false);
-        if (question.hasChildren())
-            rowView.setBackgroundResource(R.drawable.background_parent);
-        else
-            rowView.setBackgroundResource(LayoutUtils.calculateBackgrounds(position));
-
+        updateBackgroundByChildren(rowView,question,position);
         viewHolder.component = rowView.findViewById(R.id.answer);
         viewHolder.statement = (TextView) rowView.findViewById(R.id.statement);
         viewHolder.statement.setText(question.getForm_name());
 
         return rowView;
+    }
+
+    private View initialiseViewHolder(View rowView, Question question, ViewHolder viewHolder, int position) {
+        updateBackgroundByChildren(rowView,question,position);
+        viewHolder.component = rowView.findViewById(R.id.answer);
+        viewHolder.statement = (TextView) rowView.findViewById(R.id.statement);
+        viewHolder.statement.setText(question.getForm_name());
+        return rowView;
+    }
+
+    private View updateBackgroundByChildren(View view, Question question, int position){
+        int background=question.hasChildren()?R.drawable.background_parent:LayoutUtils.calculateBackgrounds(position);
+        view.setBackgroundResource(background);
+        return view;
     }
 
     private void initialiseScorableComponent(View rowView, ViewHolder viewHolder) {
@@ -659,17 +665,20 @@ public class AutoTabAdapter extends BaseAdapter implements ITabAdapter {
     }
 
     private void createRadioGroupComponent(Question question, ViewHolder viewHolder, int orientation) {
-        ((RadioGroup) viewHolder.component).setOrientation(orientation);
 
+        RadioGroup radioGroup=((RadioGroup) viewHolder.component);
+        radioGroup.setOrientation(orientation);
+
+        radioGroup.removeAllViews();
         for (Option option : question.getAnswer().getOptions()) {
             UncheckeableRadioButton button = (UncheckeableRadioButton) lInflater.inflate(R.layout.uncheckeable_radiobutton, null);
             button.setOption(option);
             button.updateProperties(PreferencesState.getInstance().getScale(), this.context.getString(R.string.font_size_level1), this.context.getString(R.string.medium_font_name));
-            ((RadioGroup) viewHolder.component).addView(button);
+            radioGroup.addView(button);
         }
 
         //Add Listener
-        ((RadioGroup) viewHolder.component).setOnCheckedChangeListener(new RadioGroupListener(question, viewHolder));
+        radioGroup.setOnCheckedChangeListener(new RadioGroupListener(question, viewHolder));
     }
 
     /**
@@ -697,6 +706,26 @@ public class AutoTabAdapter extends BaseAdapter implements ITabAdapter {
         ((RelativeLayout) viewHolder.component.getParent().getParent()).setLayoutParams(new LinearLayout.LayoutParams(0, RelativeLayout.LayoutParams.WRAP_CONTENT, componentWeight));
         ((RelativeLayout) viewHolder.num.getParent()).setLayoutParams(new LinearLayout.LayoutParams(0, RelativeLayout.LayoutParams.WRAP_CONTENT, numDenWeight));
         ((RelativeLayout) viewHolder.denum.getParent()).setLayoutParams(new LinearLayout.LayoutParams(0, RelativeLayout.LayoutParams.WRAP_CONTENT, numDenWeight));
+    }
+
+    /**
+     * Tells the base adapter how many different types of items can be drawn
+     * @return Num types items with different renderization
+     */
+    @Override
+    public int getViewTypeCount(){
+        return SurveyViewTypes.getViewTypeCount();
+    }
+
+    /**
+     * Tell the base adapter the expected type of view according to the position in the list
+     * @param position
+     * @return Type of view for the item in the given position
+     */
+    @Override
+    public int getItemViewType(int position){
+        final Object item = getItem(position);
+        return SurveyViewTypes.getItemViewType(item);
     }
 
     //////////////////////////////////////
