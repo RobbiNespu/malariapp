@@ -606,7 +606,7 @@ public class AutoTabAdapter extends BaseAdapter implements ITabAdapter {
         //Put current value in the component
         setValues(viewHolder, question);
         //Disables component if survey has already been sent
-//        updateReadOnly(viewHolder.component);
+        updateReadOnly(viewHolder.component);
 
         return rowView;
     }
